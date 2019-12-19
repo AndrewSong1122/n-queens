@@ -22,9 +22,15 @@ window.findNRooksSolution = function(n) {
   // do this starting at row 0
   var goDownRows = function(row, arr, occ) {
     // go down all the  rows
+    var num;
+    if (row === 0) {
+      num = Math.ceil(n/2);
+    } else {
+      num = n;
+    }
     if (row <= n-1) {    
       // for each col in row
-      for (var col = 0; col < n; col++) {
+      for (var col = 0; col < num; col++) {
         if (arr[row][col] === 0 && !occ.includes(col)) {
           var newArr = copyMatrix(arr, n);
           var newOcc = occ.slice();
@@ -94,10 +100,16 @@ window.findNQueensSolution = function(n) {
 
   // do this starting at row 0
   var goDownRows = function(row, arr, occ) {
+    var num;
+    if (row === 0) {
+      num = Math.ceil(n/2);
+    } else {
+      num = n;
+    }
     // go down all the  rows
     if (row <= n-1) {    
       // for each col in row
-      for (var col = 0; col < n; col++) {
+      for (var col = 0; col < num; col++) {
         if (arr[row][col] === 0 && !occ.includes(col) && freeDiagonals(row,col, n, arr)) {
           var newArr = copyMatrix(arr, n);
           var newOcc = occ.slice();
