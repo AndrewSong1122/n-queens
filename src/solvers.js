@@ -40,8 +40,10 @@ window.findNRooksSolution = function(n) {
           newOcc.push(col);
           goDownRows(row+1, newArr, newOcc);
 
-          /* Attempted to redo lines 37-41 so that
-           * it doens't have to create new arrays.
+          /* 
+           * Attempted to redo lines 37-41 so that
+           * it doesn't have to create new arrays
+           * before each recursive call.
            * Does not work.
            */
           // currentLength = occ.length;
