@@ -17,6 +17,7 @@
 // O(n!)
 window.findNRooksSolution = function(n) {
   var solution = makeEmptyMatrix(n);
+  var currentLength = 0;
 
   // do this starting at row 0
   var goDownRows = function(row, arr, occ) {
@@ -30,12 +31,21 @@ window.findNRooksSolution = function(n) {
           newArr[row][col] = 1;
           newOcc.push(col);
           goDownRows(row+1, newArr, newOcc);
+
+          // currentLength = occ.length;
+          // arr[row][col] = 1;
+          // occ.push(col);
+          // goDownRows(row+1, arr, occ);
+          // if (currentLength < occ.length) {
+          //   occ = occ.slice(0,currentLength);
+          // }
+          // arr[row][arr[row].indexOf(1)] = 0;
         }
       }
     }
     // after going through all rows
     if (row === n) {
-      solution = arr;
+      solution = copyMatrix(arr,n);
     }
   }
 
@@ -170,32 +180,38 @@ var copyMatrix = function(orig, n) {
 var freeDiagonals = function(r, c, n, mat) {
   // check major diagonal
   var count = 0;
-  var col = c - r;
-  for (var row = 0; row < n; row++) {
+  var col = c;
+  for (var row = r; row >= 0; row--) {
     if (col >= 0) {
       if (mat[row][col] === 1) {
         count++;
+        if (count >= 1) {
+          return false;
+        }
       }
-      if (count >= 1) {
-        return false;
-      }
+    } 
+    if (col === 0) {
+      break;
     }
-    col++;
+    col--;
   }
 
   // check minor diagonal
   count = 0;
-  col = c + r;
-  for (var row = 0; row < n; row++) {
+  col = c;
+  for (var row = r; row >= 0; row--) {
     if (col < n) {
       if (mat[row][col] === 1) {
         count++;
-      }
-      if (count >= 1) {
-        return false;
+        if (count >= 1) {
+          return false;
+        }
       }
     }
-    col--;
+    if (col === n-1) {
+      break;
+    }
+    col++;
   }
 
   return true;
