@@ -21,13 +21,15 @@ window.findNRooksSolution = function(n) {
 
   // do this starting at row 0
   var goDownRows = function(row, arr, occ) {
-    // go down all the  rows
     var num;
+    // only finds on the left side of the matrix, since
+    // every solution after that is mirrored
     if (row === 0) {
       num = Math.ceil(n/2);
     } else {
       num = n;
     }
+    // go down all the  rows
     if (row <= n-1) {    
       // for each col in row
       for (var col = 0; col < num; col++) {
@@ -38,6 +40,10 @@ window.findNRooksSolution = function(n) {
           newOcc.push(col);
           goDownRows(row+1, newArr, newOcc);
 
+          /* Attempted to redo lines 37-41 so that
+           * it doens't have to create new arrays.
+           * Does not work.
+           */
           // currentLength = occ.length;
           // arr[row][col] = 1;
           // occ.push(col);
